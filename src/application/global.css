@@ -1,0 +1,59 @@
+@font-face {
+    font-family: Roboto;
+    src: url("./../resources/fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Lt;
+    src: url("./../resources/fonts/Roboto-Medium.ttf");
+}
+
+@font-face {
+    font-family: Roboto-Bold;
+    src: url("./../resources/fonts/Roboto-Bold.ttf");
+}
+
+.root {
+	-fx-font-family: "Roboto", "consolas";
+	-fx-font-size: 14px;
+	-fx-text-fill: -light-200;
+	-accent: #41149E;
+	-light-100: #D8D9DB;
+	-light-200: #c1c3c7;
+	-slate-100: #67696B;
+	-slate-200: #4C4D50;
+	-slate-300: #37383A;
+	-slate-400: #202123;
+	-slate-500: #17171A;
+	-slate-600: #111113;	
+}
+
+.main-title {
+	-fx-font-family: "Roboto Lt", "consolas" !important;
+	-fx-font-size: 2em !important;
+	-fx-text-fill: -light-200 !important;
+}
+
+.divider-line {
+	-fx-background-color: -slate-600 !important;
+	-fx-border-color: -slate-400 !important;
+	-fx-border-width: 1px 0 0 0 !important;
+	-fx-border-insets: 1px 0 0 0 !important;
+}
+
+.icon-button {
+	-fx-cursor: hand;
+	-fx-background-color: -slate-300 !important;
+}
+
+.icon-button:hover{
+	-fx-background-color: -slate-200 !important;
+}
+
+.icon-button:pressed{
+	-fx-background-color: -slate-100 !important;
+}
+
+.icon-button-active{
+	-fx-background-color: -accent !important;
+}
