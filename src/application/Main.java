@@ -11,8 +11,8 @@ public class Main extends Application {
 		try {
 			HomeScene home = new HomeScene(stage);
 			stage.setScene(home.scene);
-			stage.setWidth(800);
-			stage.setHeight(600);
+			stage.setWidth(850);
+			stage.setHeight(650);
 			stage.setTitle("Cinema Ticketing System");
 			//stage.setResizable(false);
 			stage.show();

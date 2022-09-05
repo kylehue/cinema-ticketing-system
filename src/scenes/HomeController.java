@@ -1,31 +1,74 @@
 package scenes;
 
-import javafx.collections.ObservableList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import application.MovieItem;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 
 public class HomeController {
 	@FXML
 	private Button homeSceneButton;
+	
 	@FXML
 	private Button adminSceneButton;
+	
 	@FXML
 	private Button refundSceneButton;
+	
 	@FXML
-	private ImageView poster_Test;
+	private GridPane movieListNS;
+	
 	@FXML
-	private Pane posterWrapper_Test;
+	private ScrollPane scrollPaneNS;
+	
 	@FXML
-	private GridPane moviesList;
+	private GridPane movieListCS;
+	
+	@FXML
+	private ScrollPane scrollPaneCS;
+	
+	@FXML
+	private TextField movieSearch;
+	
+	ArrayList<MovieItem> movies = new ArrayList<MovieItem>();
+	
+	@FXML
+	public void filterMovies(KeyEvent e) {
+		String entry = movieSearch.getText();
+		String formattedEntry = entry.trim().toLowerCase().replaceAll("[^a-zA-Z0-9\\s+]", "");
+		String[] keywords = formattedEntry.split("\\s+");
+		String keywordsRegex = "(" + String.join("|", keywords) + ")";
+		Pattern p = Pattern.compile(keywordsRegex);
+			
+		for(int i = 0; i < movies.size(); i++) {
+			MovieItem ithMovie = movies.get(i);
+			String formattedTitle = ithMovie.title.toLowerCase().replaceAll("[^a-zA-Z0-9]", "");
+			Matcher match = p.matcher(formattedTitle);
+			if(match.find()) {
+				ithMovie.show();
+			} else {
+				ithMovie.hide();
+			}
+		}
+//		movieListNS.getColumnConstraints().get(1).setPrefWidth(0);
+//		movieListNS.getColumnConstraints().get(1).setMinWidth(0);
+//		test1.poster.setOpacity(0);
+//		test1.button.setOpacity(0);
+	}
 	
 	public void test() {
-		
+		System.out.println();
 	}
 	
 	private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
@@ -37,39 +80,44 @@ public class HomeController {
 	    return null;
 	}
 	
+	private void addMovie(String posterURL, String title) {
+		MovieItem movie = new MovieItem(posterURL, title);
+		movie.addToGridPane(movieListNS);
+		movies.add(movie);
+	}
+	
+	private void addMovie(String posterURL, String title, String premiereDate) {
+		MovieItem movie = new MovieItem(posterURL, title);
+		try {
+			if(new SimpleDateFormat("MM/dd/yyyy").parse(premiereDate).before(new Date())) {
+				movie.addToGridPane(movieListNS);
+			} else {
+				movie.addToGridPane(movieListCS);
+				movie.button.setDisable(true);
+				movie.button.setText(premiereDate);
+			}
+			movies.add(movie);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
 	public void initialize() {
-		//TODO
-		//1. Programmatically add a grid column
-		//2. Add a panel inside it
-		//3. Add an image inside the panel
-		//4. Make them all responsive
-		ImageView test = new ImageView("./resources/posters/7.jpg");
-		Pane testWrapper = new Pane();
-		//testWrapper.getChildren().add(test);
-		testWrapper.setStyle("-fx-background-color:#111;");
-		moviesList.add(testWrapper, 0, 0, 1, 1);
-		moviesList.add(test, 0, 0, 1, 1);
-		testWrapper.getParent().prefWidth(150);
-		testWrapper.getParent().maxWidth(170);
-		testWrapper.getParent().minWidth(150);
-		
-		Node nd = getNodeFromGridPane(moviesList, 0, 0);
-		nd.prefWidth(150);
-		nd.maxWidth(170);
-		nd.minWidth(150);
-		//TODO CONTINUE HERE
-		ObservableList<ColumnConstraints> columnConstraints = moviesList.getColumnConstraints();
-		columnConstraints.get(0).setFillWidth(true);
-		
-		testWrapper.minWidth(Region.USE_COMPUTED_SIZE);
-		testWrapper.minHeight(Region.USE_COMPUTED_SIZE);
-		testWrapper.prefWidth(Region.USE_COMPUTED_SIZE);
-		testWrapper.prefHeight(Region.USE_COMPUTED_SIZE);
-		testWrapper.maxWidth(Region.USE_COMPUTED_SIZE);
-		testWrapper.maxHeight(Region.USE_COMPUTED_SIZE);
-		
-		test.setPreserveRatio(true);
-		test.fitWidthProperty().bind(testWrapper.widthProperty());
-		test.fitHeightProperty().bind(testWrapper.heightProperty());
+		movieListNS.getColumnConstraints().get(0).setPrefWidth(0);
+		movieListNS.getColumnConstraints().get(0).setMinWidth(0);
+		movieListCS.getColumnConstraints().get(0).setPrefWidth(0);
+		movieListCS.getColumnConstraints().get(0).setMinWidth(0);
+
+		addMovie("./resources/posters/1.jpg", "Black Panther", "09/20/2023");
+		addMovie("./resources/posters/2.jpg", "Baby Driver", "09/20/2023");
+		addMovie("./resources/posters/3.jpg", "Captain Marvel");
+		addMovie("./resources/posters/4.jpg", "Spider-Man - Homecoming");
+		addMovie("./resources/posters/5.jpg", "Moonlight");
+		addMovie("./resources/posters/6.jpg", "Thor - Ragnarok");
+		addMovie("./resources/posters/7.jpg", "Bohemian Rhapsody");
+		addMovie("./resources/posters/8.jpg", "Spider-Man - Into the Spiderverse");
+		addMovie("./resources/posters/9.jpg", "The Batman");
 	}
 }
