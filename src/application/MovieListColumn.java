@@ -16,8 +16,8 @@ public class MovieListColumn {
 		this.columnConstraints = new ColumnConstraints();
 		
 		columnConstraints.setFillWidth(true);
-		columnConstraints.setMinWidth(150);
-		columnConstraints.setPrefWidth(170);
+		columnConstraints.setPrefWidth(150);
+		columnConstraints.setMinWidth(Region.USE_PREF_SIZE);
 		columnConstraints.setMaxWidth(Region.USE_PREF_SIZE);
 		columnConstraints.setPercentWidth(-1);
 		columnConstraints.setHalignment(HPos.CENTER);

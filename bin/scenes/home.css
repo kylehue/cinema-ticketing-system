@@ -1,9 +1,10 @@
-#mainContainer {
-	-fx-background-color: -slate-500;
-}
-
 #navContainer {
 	-fx-background-color: -slate-600;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+	-fx-background-color: transparent;
+	-fx-padding: 5px 5px;
 }
 
 .poster {

@@ -86,9 +86,8 @@
     -fx-background-radius : 2.0em;
 }
 
-.scroll-pane, .scroll-pane .viewport {
-	-fx-background-color: transparent;
-	-fx-padding: 5px 5px;
+#mainContainer {
+	-fx-background-color: -slate-500;
 }
 
 .text-field-primary {
@@ -96,6 +95,16 @@
 	-fx-text-fill: -light-200;
 	-fx-prompt-text-fill: -slate-300;
 	-fx-padding: 10px 10px;
+}
+
+.movie-label {
+	-fx-text-fill: -slate-100;
+	-fx-font-size: 0.8em;
+	-fx-wrap-text: true;
+	-fx-alignment: center;
+	-fx-text-alignment: center;
+	-fx-max-width: 300;
+	-fx-max-height: 300;
 }
 
 .button-primary{
@@ -146,4 +155,28 @@
 
 .icon-button-active{
 	-fx-background-color: -accent !important;
+}
+
+.button-back {
+	-fx-background-color: transparent;
+	-fx-font-size: 0.9em;
+	-fx-font-weight: bold;
+	-fx-text-fill: -slate-300;
+	-fx-cursor: hand;
+}
+
+.button-back:hover {
+	-fx-text-fill: -slate-200 !important;
+}
+
+.button-back:hover > .icon-button {
+	-fx-background-color: -slate-200 !important;
+}
+
+.button-back:pressed {
+	-fx-text-fill: -slate-100 !important;
+}
+
+.button-back:pressed > .icon-button {
+	-fx-background-color: -slate-100 !important;
 }

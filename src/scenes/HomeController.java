@@ -18,6 +18,9 @@ import javafx.scene.layout.GridPane;
 
 public class HomeController {
 	@FXML
+	private GridPane mainContainer;
+	
+	@FXML
 	private Button homeSceneButton;
 	
 	@FXML
@@ -42,7 +45,7 @@ public class HomeController {
 	private TextField movieSearch;
 	
 	ArrayList<MovieItem> movies = new ArrayList<MovieItem>();
-	
+
 	@FXML
 	public void filterMovies(KeyEvent e) {
 		String entry = movieSearch.getText();
@@ -61,10 +64,6 @@ public class HomeController {
 				ithMovie.hide();
 			}
 		}
-//		movieListNS.getColumnConstraints().get(1).setPrefWidth(0);
-//		movieListNS.getColumnConstraints().get(1).setMinWidth(0);
-//		test1.poster.setOpacity(0);
-//		test1.button.setOpacity(0);
 	}
 	
 	public void test() {
@@ -89,7 +88,9 @@ public class HomeController {
 	private void addMovie(String posterURL, String title, String premiereDate) {
 		MovieItem movie = new MovieItem(posterURL, title);
 		try {
-			if(new SimpleDateFormat("MM/dd/yyyy").parse(premiereDate).before(new Date())) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+			Date now = new Date();
+			if(dateFormat.parse(premiereDate).before(now)) {
 				movie.addToGridPane(movieListNS);
 			} else {
 				movie.addToGridPane(movieListCS);

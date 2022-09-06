@@ -3,10 +3,13 @@ package application;
 import java.awt.Dimension;
 
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import scenes.SceneController;
 
 public class Utils {
 	public static Dimension getScaledDimension(Dimension imgSize, Dimension boundary) {
@@ -36,10 +39,64 @@ public class Utils {
 	    return new Dimension(new_width, new_height);
 	}
 	
+	public static void coverImageView(ImageView img, ScrollPane wrapper) {
+		double width = img.getBoundsInLocal().getWidth();
+		double wrapperWidth = wrapper.getBoundsInLocal().getWidth();
+		if (wrapperWidth >= width) {
+			//Prioritize width
+			img.fitHeightProperty().unbind();
+			img.setFitHeight(Double.MAX_VALUE);
+			img.fitWidthProperty().bind(wrapper.widthProperty());
+		}
+		
+		double height = img.getBoundsInLocal().getHeight();
+		double wrapperHeight = wrapper.getBoundsInLocal().getHeight();
+		if (wrapperHeight >= height) {
+			//Prioritize height
+			img.fitWidthProperty().unbind();
+			img.setFitWidth(Double.MAX_VALUE);
+			img.fitHeightProperty().bind(wrapper.heightProperty());
+		}
+	}
+	
+	public static void wrapImageView(ImageView img, ScrollPane wrapper, GridPane mainContainer) {
+		img.setPreserveRatio(true);
+		img.setFitWidth(Double.MAX_VALUE);
+		//img.setFitHeight(Double.MAX_VALUE);
+		//img.fitWidthProperty().bind(wrapper.widthProperty());
+		img.fitHeightProperty().bind(wrapper.heightProperty());
+		
+		SceneController.stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+			coverImageView(img, wrapper);
+		});
+		
+		SceneController.stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+			coverImageView(img, wrapper);
+		});
+
+		wrapper.widthProperty().addListener((obs, oldVal, newVal) -> {
+			coverImageView(img, wrapper);
+		});
+		
+		wrapper.heightProperty().addListener((obs, oldVal, newVal) -> {
+			coverImageView(img, wrapper);
+		});
+
+		mainContainer.widthProperty().addListener((obs, oldVal, newVal) -> {
+			coverImageView(img, wrapper);
+		});
+		
+		mainContainer.heightProperty().addListener((obs, oldVal, newVal) -> {
+			coverImageView(img, wrapper);
+		});
+	}
+	
 	public static void cornerRadius(ImageView imageView, double radius) {
 		// set a clip to apply rounded border to the original image.
+		double width = imageView.getImage().getWidth();
+		double height = imageView.getImage().getHeight();
         Dimension orig = new Dimension();
-        orig.setSize(imageView.getImage().getWidth(), imageView.getImage().getHeight());
+        orig.setSize(width, height);
         Dimension newSize = new Dimension();
         newSize.setSize(300, 444);
         Dimension dim = getScaledDimension(orig, newSize);

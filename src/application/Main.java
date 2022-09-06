@@ -2,19 +2,18 @@ package application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
-import scenes.HomeScene;
+import scenes.SceneController;
 
 
 public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		try {
-			HomeScene home = new HomeScene(stage);
-			stage.setScene(home.scene);
-			stage.setWidth(850);
-			stage.setHeight(650);
+			new SceneController(stage);
+			SceneController.switchToHome();
+			stage.setWidth(Constants.width);
+			stage.setHeight(Constants.height);
 			stage.setTitle("Cinema Ticketing System");
-			//stage.setResizable(false);
 			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
