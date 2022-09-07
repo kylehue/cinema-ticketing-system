@@ -3,9 +3,11 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -44,7 +46,8 @@
         <rowConstraints>
           <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" vgrow="SOMETIMES" />
         </rowConstraints>
@@ -53,20 +56,63 @@
          </padding>
          <children>
             <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" style="-fx-background-color: #333;" styleClass="divider-line" GridPane.rowIndex="1" />
-            <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" style="-fx-background-color: #333;" styleClass="divider-line" GridPane.rowIndex="3" />
-            <Button fx:id="proceedButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="button-primary" text="Proceed" GridPane.rowIndex="4" />
-            <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-               <content>
-                  <GridPane fx:id="scheduleContainer">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                  </GridPane>
-               </content>
-            </ScrollPane>
+            <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" style="-fx-background-color: #333;" styleClass="divider-line" GridPane.rowIndex="4" />
+            <Button fx:id="proceedButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#proceed" styleClass="button-primary" text="Proceed" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <GridPane GridPane.rowIndex="2">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" maxHeight="200.0" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.rowIndex="1">
+                     <content>
+                        <GridPane fx:id="scheduleDateContainer">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <GridPane alignment="CENTER" style="-fx-background-color: -slate-300; -fx-background-radius: 10px;">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="-Infinity" minHeight="5.0" prefHeight="30.0" vgrow="NEVER" />
+                                  <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="NEVER" />
+                                  <RowConstraints maxHeight="-Infinity" minHeight="5.0" prefHeight="30.0" vgrow="NEVER" />
+                                    <RowConstraints vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label alignment="CENTER" style="-fx-text-fill: -slate-100; -fx-font-weight: bold; -fx-background-color: red;" text="SEP" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <Label style="-fx-text-fill: -slate-100; -fx-font-size: 1.4em; -fx-font-weight: bold; -fx-background-color: red;" text="08" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                    <Label style="-fx-text-fill: -slate-100; -fx-background-color: red;" text="Thu" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                 </children>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </GridPane>
+                           </children>
+                        </GridPane>
+                     </content>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </ScrollPane>
+                  <TextField fx:id="scheduleDateSearch" onKeyTyped="#filterDates" promptText="Search date" styleClass="text-field-primary" />
+               </children>
+            </GridPane>
             <GridPane>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -91,6 +137,61 @@
                         </Button>
                      </graphic>
                   </Button>
+               </children>
+            </GridPane>
+            <GridPane GridPane.rowIndex="3">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" maxHeight="200.0" pannable="true" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" GridPane.rowIndex="1">
+                     <content>
+                        <GridPane fx:id="scheduleTimeContainer">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <GridPane alignment="CENTER" style="-fx-background-color: -slate-300; -fx-background-radius: 10px;">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="-Infinity" minHeight="5.0" prefHeight="30.0" vgrow="NEVER" />
+                                    <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="50.0" vgrow="NEVER" />
+                                    <RowConstraints maxHeight="-Infinity" minHeight="5.0" prefHeight="30.0" vgrow="NEVER" />
+                                    <RowConstraints vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label alignment="CENTER" style="-fx-text-fill: -slate-100; -fx-font-weight: bold; -fx-background-color: red;" text="SEP" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                                    <Label style="-fx-text-fill: -slate-100; -fx-font-size: 1.4em; -fx-font-weight: bold; -fx-background-color: red;" text="08" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                                    <Label style="-fx-text-fill: -slate-100; -fx-background-color: red;" text="Thu" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                 </children>
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </GridPane>
+                           </children>
+                        </GridPane>
+                     </content>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </ScrollPane>
+                  <TextField fx:id="scheduleTimeSearch" onKeyTyped="#filterDates" promptText="Search time" styleClass="text-field-primary" />
                </children>
             </GridPane>
          </children>

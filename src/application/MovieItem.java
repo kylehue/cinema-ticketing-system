@@ -13,30 +13,26 @@ import scenes.SceneController;
 public class MovieItem {
 	public Button button;
 	public ImageView poster;
-	public String title;
-	public MovieListColumn column;
+	public ListColumn column;
 	public Pane posterWrapper;
 	public Label label;
+	public Movie movie;
 	
 	public boolean hidden = false;
 	
-	public MovieItem(String posterURL) {
-		initialize(posterURL);
+	public MovieItem(Movie movie) {
+		this.movie = movie;
+		initialize(movie);
 	}
 	
-	public MovieItem(String posterURL, String title) {
-		this.title = title;
-		initialize(posterURL);
-	}
-	
-	private void initialize(String posterURL) {
+	private void initialize(Movie movie) {
 		//Create wrapper for poster
 		posterWrapper = new Pane();
 		//posterWrapper.setStyle("-fx-background-color:#111;");
 		//gridPane.setGridLinesVisible(true);
 		
 		//Create image for poster
-		poster = new ImageView(new Image(posterURL));
+		poster = new ImageView(new Image(movie.posterURL));
 		Utils.cornerRadius(poster, 40);
 		
 		//We only added poster wrapper so we can have its size as the basis of poster's size
@@ -47,7 +43,7 @@ public class MovieItem {
 		
 		//Create label for title
 		label = new Label();
-		label.setText(title);
+		label.setText(movie.title);
 		label.getStyleClass().add("movie-label");
 		
 		//Create "buy ticket" button
@@ -57,12 +53,13 @@ public class MovieItem {
 		//Add click event on the button
 		//When clicked, go to schedule scene
 		button.setOnMouseClicked((MouseEvent event) -> {
-			SceneController.scheduleController.setPoster(posterURL);
+			SceneController.scheduleController.setMovie(movie);
+			SceneController.ticketController.setMovie(movie);
 			SceneController.switchToSchedule();
 		});
 		
 		//Add tooltip to image
-		String tooltipMessage = title != null ? title : "";
+		String tooltipMessage = movie.title != null ? movie.title : "";
 		if(tooltipMessage.length() > 0) {
 			Tooltip details = new Tooltip(tooltipMessage);
 			Tooltip.install(poster, details);
@@ -71,20 +68,15 @@ public class MovieItem {
 
 	private double prefWidth;
 	private double minWidth;
-	private boolean buttonDisabled;
 	public void hide() {
 		if (!hidden) {
 			minWidth = column.columnConstraints.getMinWidth();
 			prefWidth = column.columnConstraints.getPrefWidth();
-			buttonDisabled = button.disableProperty().getValue();
 			column.columnConstraints.setMinWidth(0);
 			column.columnConstraints.setPrefWidth(0);
 			poster.setVisible(false);
 			label.setVisible(false);
 			button.setVisible(false);
-			poster.setDisable(true);
-			label.setDisable(true);
-			button.setDisable(true);
 			hidden = true;
 		}
 	}
@@ -96,9 +88,6 @@ public class MovieItem {
 			poster.setVisible(true);
 			label.setVisible(true);
 			button.setVisible(true);
-			poster.setDisable(false);
-			label.setDisable(false);
-			button.setDisable(buttonDisabled);
 			hidden = false;
 		}
 	}
@@ -106,7 +95,7 @@ public class MovieItem {
 	public void addToGridPane(GridPane gridPane) {
 
 		//Create column and add it to gridpane
-		column = new MovieListColumn(gridPane);
+		column = new ListColumn(gridPane);
 		
 		//Add poster wrapper and poster to column
 		//The poster doesn't necessarily need to be inside the poster wrapper

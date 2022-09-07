@@ -1,3 +1,100 @@
 .scroll-pane, .scroll-pane .viewport {
-	-fx-background-color: -slate-600;
+	-fx-background-color: transparent;
+}
+
+.schedule-date-item {
+	-fx-background-color: -slate-300;
+	-fx-background-radius: 10px;
+	-fx-cursor: hand;
+}
+
+.schedule-date-item:hover {
+	-fx-background-color: derive(-slate-300, 10%) !important;
+}
+
+.schedule-date-item:pressed {
+	-fx-background-color: derive(-slate-300, -10%) !important;
+}
+
+.schedule-date-item-active {
+	-fx-background-color: -accent !important;
+}
+
+.schedule-date-item-active .label {
+	-fx-text-fill: -light-200 !important;
+}
+
+.schedule-date-item-active:hover {
+	-fx-background-color: derive(-accent, 10%) !important;
+}
+
+.schedule-date-item-active:pressed {
+	-fx-background-color: derive(-accent, -10%) !important;
+}
+
+.schedule-date-item-month {
+	-fx-text-fill: -slate-100;
+	-fx-font-weight: bold;
+}
+
+.schedule-date-item-day {
+	-fx-text-fill: -slate-100;
+	-fx-font-weight: bold;
+	-fx-font-size: 1.6em;
+}
+
+.schedule-date-item-day-name {
+	-fx-text-fill: -slate-100;
+}
+
+
+
+
+
+.schedule-time-item {
+	-fx-background-color: -slate-300;
+	-fx-background-radius: 10px;
+	-fx-cursor: hand;
+}
+
+.schedule-time-item:hover {
+	-fx-background-color: derive(-slate-300, 10%) !important;
+}
+
+.schedule-time-item:pressed {
+	-fx-background-color: derive(-slate-300, -10%) !important;
+}
+
+.schedule-time-item-active {
+	-fx-background-color: -accent !important;
+}
+
+.schedule-time-item-active .label {
+	-fx-text-fill: -light-200 !important;
+}
+
+.schedule-time-item-active:hover {
+	-fx-background-color: derive(-accent, 10%) !important;
+}
+
+.schedule-time-item-active:pressed {
+	-fx-background-color: derive(-accent, -10%) !important;
+}
+
+.schedule-time-item-hours {
+	-fx-text-fill: -slate-100;
+	-fx-font-weight: bold;
+	-fx-font-size: 1.4em;
+}
+
+.schedule-time-item-minutes {
+	-fx-text-fill: -slate-100;
+	-fx-font-weight: bold;
+	-fx-font-size: 1.4em;
+}
+
+.schedule-time-item-meridiem {
+	-fx-text-fill: -slate-100;
+	-fx-font-weight: bold;
+	-fx-font-size: 1em;
 }

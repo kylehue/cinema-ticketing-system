@@ -86,6 +86,10 @@
     -fx-background-radius : 2.0em;
 }
 
+* {
+	-fx-font-smoothing-type: gray;
+}
+
 #mainContainer {
 	-fx-background-color: -slate-500;
 }
@@ -95,6 +99,7 @@
 	-fx-text-fill: -light-200;
 	-fx-prompt-text-fill: -slate-300;
 	-fx-padding: 10px 10px;
+	-fx-background-radius: 5px;
 }
 
 .movie-label {

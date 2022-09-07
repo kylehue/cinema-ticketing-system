@@ -1,6 +1,7 @@
 package application;
 
 import java.awt.Dimension;
+import java.util.regex.Pattern;
 
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ScrollPane;
@@ -39,7 +40,16 @@ public class Utils {
 	    return new Dimension(new_width, new_height);
 	}
 	
-	public static void coverImageView(ImageView img, ScrollPane wrapper) {
+	public static Pattern getKeywords(String entry) {
+		String formattedEntry = entry.trim().toLowerCase().replaceAll("[^a-zA-Z0-9\\s+]", "");
+		String[] keywords = formattedEntry.split("\\s+");
+		String keywordsRegex = "(" + String.join("|", keywords) + ")";
+		Pattern pattern = Pattern.compile(keywordsRegex);
+		
+		return pattern;
+	}
+	
+	private static void coverImageView(ImageView img, ScrollPane wrapper) {
 		double width = img.getBoundsInLocal().getWidth();
 		double wrapperWidth = wrapper.getBoundsInLocal().getWidth();
 		if (wrapperWidth >= width) {
