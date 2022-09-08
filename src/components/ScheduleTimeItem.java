@@ -1,4 +1,7 @@
-package application;
+package components;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
@@ -16,24 +19,37 @@ import javafx.scene.layout.RowConstraints;
 
 public class ScheduleTimeItem {
 	public GridPane timeItemWrapper;
-	public Label hoursLabel;
-	public Label minutesLabel;
+	public Label timeLabel;
 	public Label meridiemLabel;
+	public String time;
 	public String hours, minutes, meridiem;
 	public ListColumn column;
+	public boolean isActive = false;
 	
 	public boolean hidden = false;
 	
-	public ScheduleTimeItem(String hours, String minutes, String meridiem) {
-		this.hours = hours;
-		this.minutes = minutes;
-		this.meridiem = meridiem;
+	public ScheduleTimeItem(String time) {
+		this.time = time;
+		
+		//Format
+		SimpleDateFormat defaultFormat = new SimpleDateFormat("hh:mm a");
+		SimpleDateFormat targetFormat = new SimpleDateFormat("hh/mm/a");
+		try {
+		    String[] formattedTime = targetFormat.format(defaultFormat.parse(time)).split("/");
+			this.hours = formattedTime[0];
+			this.minutes = formattedTime[1];
+			this.meridiem = formattedTime[2];
+		} catch (ParseException e) {
+		    e.printStackTrace();
+		}
+		
 		//Create wrapper for the item
 		timeItemWrapper = new GridPane();
 		timeItemWrapper.setPadding(new Insets(10, 10, 10, 10));
 		GridPane.setMargin(timeItemWrapper, new Insets(10, 5, 10, 5));
 		timeItemWrapper.getStyleClass().add("schedule-time-item");
 		timeItemWrapper.setAlignment(Pos.CENTER);
+		timeItemWrapper.setMinHeight(140);
 		
 		//Create column for time item wrapper
 		ColumnConstraints timeItemColumn = new ColumnConstraints();
@@ -45,30 +61,21 @@ public class ScheduleTimeItem {
 		timeItemColumn.setHalignment(HPos.CENTER);
 		timeItemColumn.setPercentWidth(100);
 
-		//Create rows for time item wrapper
-		//Row for month label
-		RowConstraints hoursRow = new RowConstraints();
-		hoursRow.setFillHeight(true);
-		hoursRow.setMinHeight(5);
-		hoursRow.setPrefHeight(40);
-		hoursRow.setMaxHeight(Region.USE_PREF_SIZE);
-		hoursRow.setPercentHeight(-1);
-		hoursRow.setVgrow(Priority.NEVER);
-		hoursRow.setValignment(VPos.CENTER);
-		//Row for day label
-		RowConstraints minutesRow = new RowConstraints();
-		minutesRow.setFillHeight(true);
-		minutesRow.setMinHeight(10);
-		minutesRow.setPrefHeight(40);
-		minutesRow.setMaxHeight(Region.USE_PREF_SIZE);
-		minutesRow.setPercentHeight(-1);
-		minutesRow.setVgrow(Priority.NEVER);
-		minutesRow.setValignment(VPos.CENTER);
-		//Row for day name label
+		//Row for time label
+		RowConstraints timeRow = new RowConstraints();
+		timeRow.setFillHeight(true);
+		timeRow.setMinHeight(10);
+		timeRow.setPrefHeight(40);
+		timeRow.setMaxHeight(Region.USE_PREF_SIZE);
+		timeRow.setPercentHeight(-1);
+		timeRow.setVgrow(Priority.NEVER);
+		timeRow.setValignment(VPos.CENTER);
+		
+		//Row for meridiem label
 		RowConstraints meridiemRow = new RowConstraints();
 		meridiemRow.setFillHeight(true);
 		meridiemRow.setMinHeight(5);
-		meridiemRow.setPrefHeight(40);
+		meridiemRow.setPrefHeight(30);
 		meridiemRow.setMaxHeight(Region.USE_PREF_SIZE);
 		meridiemRow.setPercentHeight(-1);
 		meridiemRow.setVgrow(Priority.NEVER);
@@ -76,17 +83,12 @@ public class ScheduleTimeItem {
 		
 		//Add the rows and columns to time item wrapper
 		timeItemWrapper.getColumnConstraints().add(timeItemColumn);
-		timeItemWrapper.getRowConstraints().addAll(hoursRow, minutesRow, meridiemRow);
+		timeItemWrapper.getRowConstraints().addAll(timeRow, meridiemRow);
 		
-		//Create label for hours
-		hoursLabel = new Label();
-		hoursLabel.setText(hours);
-		hoursLabel.getStyleClass().add("schedule-time-item-hours");
-
 		//Create label for minutes
-		minutesLabel = new Label();
-		minutesLabel.setText(minutes);
-		minutesLabel.getStyleClass().add("schedule-time-item-minutes");
+		timeLabel = new Label();
+		timeLabel.setText(hours + ":" + minutes);
+		timeLabel.getStyleClass().add("schedule-time-item-minutes");
 
 		//Create label for meridiem
 		meridiemLabel = new Label();
@@ -94,26 +96,8 @@ public class ScheduleTimeItem {
 		meridiemLabel.getStyleClass().add("schedule-time-item-meridiem");
 		
 		//Add all
-		timeItemWrapper.add(hoursLabel, 0, 0);
-		timeItemWrapper.add(minutesLabel, 0, 1);
-		timeItemWrapper.add(meridiemLabel, 0, 2);
-		
-		
-		//Add click event on the time wrapper
-		//When clicked, set to active.
-		timeItemWrapper.setOnMouseClicked((MouseEvent event) -> {
-			GridPane container = (GridPane)((Node)event.getSource()).getParent();
-			ObservableList<Node> children =  container.getChildren();
-			
-			//Remove all actives
-			for (int i = 0; i < children.size(); i++) {
-				GridPane ithChild = (GridPane)children.get(i);
-				ithChild.getStyleClass().remove("schedule-time-item-active");
-			}
-			
-			//Make the clicked node active
-			timeItemWrapper.getStyleClass().add("schedule-time-item-active");
-		});
+		timeItemWrapper.add(timeLabel, 0, 0);
+		timeItemWrapper.add(meridiemLabel, 0, 1);
 	}
 
 	private double prefWidth;

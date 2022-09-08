@@ -3,6 +3,7 @@ package application;
 import java.awt.Dimension;
 import java.util.regex.Pattern;
 
+import controllers.SceneController;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -10,7 +11,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import scenes.SceneController;
 
 public class Utils {
 	public static Dimension getScaledDimension(Dimension imgSize, Dimension boundary) {
@@ -43,7 +43,7 @@ public class Utils {
 	public static Pattern getKeywords(String entry) {
 		String formattedEntry = entry.trim().toLowerCase().replaceAll("[^a-zA-Z0-9\\s+]", "");
 		String[] keywords = formattedEntry.split("\\s+");
-		String keywordsRegex = "(" + String.join("|", keywords) + ")";
+		String keywordsRegex = "^(?=.*" + String.join(")(?=.*", keywords) + ").+";
 		Pattern pattern = Pattern.compile(keywordsRegex);
 		
 		return pattern;
