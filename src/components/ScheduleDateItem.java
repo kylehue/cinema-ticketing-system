@@ -51,7 +51,8 @@ public class ScheduleDateItem {
 		GridPane.setMargin(dateItemWrapper, new Insets(10, 5, 10, 5));
 		dateItemWrapper.getStyleClass().add("schedule-date-item");
 		dateItemWrapper.setAlignment(Pos.CENTER);
-		dateItemWrapper.setMinHeight(140);
+		dateItemWrapper.setMinHeight(100);
+		dateItemWrapper.setMaxHeight(140);
 		
 		//Create column for date item wrapper
 		ColumnConstraints dateItemColumn = new ColumnConstraints();

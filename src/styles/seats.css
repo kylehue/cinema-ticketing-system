@@ -1,0 +1,29 @@
+.scroll-pane, .scroll-pane .viewport {
+	-fx-background-color: transparent;
+}
+
+.seat-button {
+	-fx-background-color: -slate-200 !important;
+}
+
+.seat-button:hover {
+	-fx-cursor: hand;
+	-fx-background-color: derive(-slate-200, 10%) !important;
+}
+
+.seat-button:pressed {
+	-fx-background-color: derive(-slate-200, -10%) !important;
+}
+
+.seat-button-active {
+	-fx-background-color: -accent !important;
+}
+
+.seat-button-active:hover {
+	-fx-cursor: hand;
+	-fx-background-color: derive(-accent, 10%) !important;
+}
+
+.seat-button-active:pressed {
+	-fx-background-color: derive(-accent, -10%) !important;
+}

@@ -54,7 +54,7 @@
          <children>
             <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" style="-fx-background-color: #333;" styleClass="divider-line" GridPane.rowIndex="1" />
             <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="1.0" style="-fx-background-color: #333;" styleClass="divider-line" GridPane.rowIndex="3" />
-            <Button fx:id="proceedButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="button-primary" text="Proceed" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+            <Button fx:id="proceedButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#proceed" styleClass="button-primary" text="Proceed" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
             <GridPane>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -81,180 +81,184 @@
                   </Button>
                </children>
             </GridPane>
-            <GridPane GridPane.rowIndex="2">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints fillHeight="false" minHeight="100.0" valignment="TOP" vgrow="SOMETIMES" />
-                <RowConstraints fillHeight="false" minHeight="10.0" valignment="TOP" vgrow="ALWAYS" />
-              </rowConstraints>
-               <children>
-                  <GridPane style="-fx-background-color: -slate-600; -fx-background-radius: 5px;">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minHeight="100.0" GridPane.rowIndex="2">
+               <content>
+                  <GridPane>
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints fillHeight="false" minHeight="100.0" valignment="TOP" vgrow="SOMETIMES" />
+                      <RowConstraints fillHeight="false" minHeight="10.0" valignment="TOP" vgrow="ALWAYS" />
                     </rowConstraints>
                      <children>
-                        <GridPane>
+                        <GridPane style="-fx-background-color: -slate-600; -fx-background-radius: 5px;">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="NEVER" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Film:">
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="filmLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -slate-100;" text="Black Panther" GridPane.columnIndex="1" />
-                           </children>
-                        </GridPane>
-                        <GridPane GridPane.rowIndex="1">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="NEVER" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Scheduled Date:">
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="scheduledDateLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -slate-100;" text="September 17, 2022" GridPane.columnIndex="1" />
-                           </children>
-                        </GridPane>
-                        <GridPane GridPane.rowIndex="2">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="NEVER" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Scheduled Time:">
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="scheduledTimeLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -slate-100;" text="2:00 PM" GridPane.columnIndex="1" />
-                           </children>
-                        </GridPane>
-                        <GridPane GridPane.rowIndex="3">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="NEVER" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Ticket Price:">
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="ticketPriceLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -slate-100;" text="450.00" GridPane.columnIndex="1" />
-                           </children>
-                        </GridPane>
-                     </children>
-                     <GridPane.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                     </padding>
-                  </GridPane>
-                  <GridPane style="-fx-background-color: -slate-600; -fx-background-radius: 5px;" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <GridPane>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="NEVER" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Subtotal: ">
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="subtotalLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -light-200;" text="450.00" GridPane.columnIndex="1" />
-                           </children>
-                        </GridPane>
-                        <GridPane GridPane.rowIndex="1">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="NEVER" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Quantity: ">
-                                 <padding>
-                                    <Insets right="10.0" />
-                                 </padding>
-                              </Label>
-                              <GridPane GridPane.columnIndex="1">
+                              <GridPane>
                                 <columnConstraints>
-                                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" />
-                                    <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                  <ColumnConstraints hgrow="NEVER" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label fx:id="quantityLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -light-200;" text="1" GridPane.columnIndex="1" />
-                                    <Button fx:id="incrementQuantityButton" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#incrementQuantity" prefHeight="15.0" prefWidth="15.0" snapToPixel="false" text="Button" GridPane.columnIndex="2" GridPane.halignment="LEFT">
-                                       <styleClass>
-                                          <String fx:value="icon-button" />
-                                          <String fx:value="plus-circle" />
-                                       </styleClass>
-                                    </Button>
-                                    <Button fx:id="decrementQuantityButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#decrementQuantity" prefHeight="15.0" prefWidth="15.0" snapToPixel="false" text="Button" GridPane.halignment="RIGHT">
-                                       <styleClass>
-                                          <String fx:value="minus-circle" />
-                                          <String fx:value="icon-button" />
-                                       </styleClass>
-                                    </Button>
+                                    <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Film:">
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label fx:id="filmLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -slate-100;" text="Black Panther" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="1">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="NEVER" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Scheduled Date:">
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label fx:id="scheduledDateLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -slate-100;" text="September 17, 2022" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="2">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="NEVER" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Scheduled Time:">
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label fx:id="scheduledTimeLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -slate-100;" text="2:00 PM" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="3">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="NEVER" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Ticket Price:">
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label fx:id="ticketPriceLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -slate-100;" text="450.00" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                            </children>
+                           <GridPane.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </padding>
+                        </GridPane>
+                        <GridPane style="-fx-background-color: -slate-600; -fx-background-radius: 5px;" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="NEVER" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Subtotal: ">
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label fx:id="subtotalLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -light-200;" text="450.00" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="1">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="NEVER" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label style="-fx-font-size: 1em; -fx-text-fill: -slate-200; -fx-font-family: consolas;" text="Quantity: ">
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <GridPane GridPane.columnIndex="1">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="15.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Label fx:id="quantityLabel" style="-fx-font-size: 1.2em; -fx-font-weight: bold; -fx-font-family: consolas; -fx-text-fill: -light-200;" text="1" GridPane.columnIndex="1" />
+                                          <Button fx:id="incrementQuantityButton" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#incrementQuantity" prefHeight="15.0" prefWidth="15.0" snapToPixel="false" text="Button" GridPane.columnIndex="2" GridPane.halignment="LEFT">
+                                             <styleClass>
+                                                <String fx:value="icon-button" />
+                                                <String fx:value="plus-circle" />
+                                             </styleClass>
+                                          </Button>
+                                          <Button fx:id="decrementQuantityButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#decrementQuantity" prefHeight="15.0" prefWidth="15.0" snapToPixel="false" text="Button" GridPane.halignment="RIGHT">
+                                             <styleClass>
+                                                <String fx:value="minus-circle" />
+                                                <String fx:value="icon-button" />
+                                             </styleClass>
+                                          </Button>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets top="5.0" />
+                           </GridPane.margin>
                         </GridPane>
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                     </padding>
-                     <GridPane.margin>
-                        <Insets top="5.0" />
-                     </GridPane.margin>
                   </GridPane>
-               </children>
-            </GridPane>
+               </content>
+            </ScrollPane>
          </children>
       </GridPane>
    </children>

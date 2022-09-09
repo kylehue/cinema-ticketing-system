@@ -84,6 +84,7 @@ public class ScheduleController {
 		
 
 		SceneController.ticketController.setSchedule(date, time);
+		SceneController.billingController.setSchedule(date, time);
 		SceneController.switchToTicket();
 	}
 	

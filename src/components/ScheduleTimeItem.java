@@ -49,7 +49,8 @@ public class ScheduleTimeItem {
 		GridPane.setMargin(timeItemWrapper, new Insets(10, 5, 10, 5));
 		timeItemWrapper.getStyleClass().add("schedule-time-item");
 		timeItemWrapper.setAlignment(Pos.CENTER);
-		timeItemWrapper.setMinHeight(140);
+		timeItemWrapper.setMinHeight(100);
+		timeItemWrapper.setMaxHeight(140);
 		
 		//Create column for time item wrapper
 		ColumnConstraints timeItemColumn = new ColumnConstraints();

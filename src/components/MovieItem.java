@@ -57,6 +57,8 @@ public class MovieItem {
 		button.setOnMouseClicked((MouseEvent event) -> {
 			SceneController.scheduleController.setMovie(movie);
 			SceneController.ticketController.setMovie(movie);
+			SceneController.seatsController.setMovie(movie);
+			SceneController.billingController.setMovie(movie);
 			SceneController.switchToSchedule();
 		});
 		

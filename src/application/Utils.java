@@ -1,6 +1,7 @@
 package application;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import controllers.SceneController;
@@ -38,6 +39,28 @@ public class Utils {
 	    }
 
 	    return new Dimension(new_width, new_height);
+	}
+	
+	private static ArrayList<String> generatedIDs = new ArrayList<String>();
+	
+	private static String generateID() {
+		int idLength = 10;
+		String chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFHJKLZXCVBNM1234567890-_";
+		String generatedID = "";
+		for (int i = 0; i < idLength; i++) {
+			generatedID += chars.charAt((int)Math.floor(Math.random() * chars.length()));
+		}
+		
+		return generatedID;
+	}
+	
+	public static String createUID() {
+		String id = generateID();
+		while(generatedIDs.contains(id)) {
+			id = generateID();
+		}
+		
+		return id;
 	}
 	
 	public static Pattern getKeywords(String entry) {

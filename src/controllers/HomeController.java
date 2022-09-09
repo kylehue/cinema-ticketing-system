@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 import application.Movie;
 import application.Schedule;
 import application.Utils;
+import application.Voucher;
+import application.Vouchers;
 import components.MovieItem;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -134,5 +136,8 @@ public class HomeController {
 		MovieItem br = addMovie("./resources/posters/7.jpg", "Bohemian Rhapsody", "06/05/2023", 325);
 		MovieItem smits = addMovie("./resources/posters/8.jpg", "Spider-Man - Into the Spiderverse", "05/14/2022", 300);
 		MovieItem tb = addMovie("./resources/posters/9.jpg", "The Batman", "05/27/2023", 450);
+		
+		Voucher voucher = Vouchers.generate();
+		System.out.println(voucher.getCode());
 	}
 }

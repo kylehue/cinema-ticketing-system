@@ -72,6 +72,7 @@ public class TicketController {
 		quantity++;
 		quantityLabel.setText(String.valueOf(quantity));
 		updateSubtotal();
+		SceneController.seatsController.reset();
 	}
 
 	@FXML
@@ -80,11 +81,14 @@ public class TicketController {
 			quantity--;
 			quantityLabel.setText(String.valueOf(quantity));
 			updateSubtotal();
+			SceneController.seatsController.reset();
 		}
 	}
 	
 	public void proceed() {
-		SceneController.switchToTicket();
+		SceneController.seatsController.setMaxTickets(quantity);
+		SceneController.billingController.setQuantity(quantity);
+		SceneController.switchToSeats();
 	}
 	
 	public void setMovie(Movie movie) {

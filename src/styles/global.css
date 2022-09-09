@@ -88,6 +88,7 @@
 
 * {
 	-fx-font-smoothing-type: gray;
+	-fx-focus-traversable: false;
 }
 
 #mainContainer {
@@ -118,7 +119,6 @@
 	-fx-padding: 10px 20px;
 	-fx-font-family: "Roboto Bold" !important;
 	-fx-font-size: 0.8em;
-	-fx-cursor: hand;
 	
     -fx-border-insets: 0 5px;
     -fx-background-insets: 0 5px;
@@ -126,6 +126,7 @@
 
 .button-primary:hover{
 	-fx-background-color: -accent-lighter !important;
+	-fx-cursor: hand;
 }
 
 .button-primary:pressed{
@@ -146,11 +147,11 @@
 }
 
 .icon-button {
-	-fx-cursor: hand;
 	-fx-background-color: -slate-300 !important;
 }
 
 .icon-button:hover{
+	-fx-cursor: hand;
 	-fx-background-color: -slate-200 !important;
 }
 
@@ -167,10 +168,10 @@
 	-fx-font-size: 0.9em;
 	-fx-font-weight: bold;
 	-fx-text-fill: -slate-300;
-	-fx-cursor: hand;
 }
 
 .button-back:hover {
+	-fx-cursor: hand;
 	-fx-text-fill: -slate-200 !important;
 }
 
