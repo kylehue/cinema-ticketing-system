@@ -88,6 +88,7 @@ public class TicketController {
 	public void proceed() {
 		SceneController.seatsController.setMaxTickets(quantity);
 		SceneController.billingController.setQuantity(quantity);
+		SceneController.overviewController.setQuantity(quantity);
 		SceneController.switchToSeats();
 	}
 	

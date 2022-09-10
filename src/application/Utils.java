@@ -44,8 +44,8 @@ public class Utils {
 	private static ArrayList<String> generatedIDs = new ArrayList<String>();
 	
 	private static String generateID() {
-		int idLength = 10;
-		String chars = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFHJKLZXCVBNM1234567890-_";
+		int idLength = 8;
+		String chars = "ABCDEFGHIJKLMNOPQRSTUVQXYZ1234567890";
 		String generatedID = "";
 		for (int i = 0; i < idLength; i++) {
 			generatedID += chars.charAt((int)Math.floor(Math.random() * chars.length()));
@@ -90,6 +90,9 @@ public class Utils {
 			img.setFitWidth(Double.MAX_VALUE);
 			img.fitHeightProperty().bind(wrapper.heightProperty());
 		}
+
+		wrapper.setHvalue(0.5);
+		wrapper.setVvalue(0.5);
 	}
 	
 	public static void wrapImageView(ImageView img, ScrollPane wrapper, GridPane mainContainer) {

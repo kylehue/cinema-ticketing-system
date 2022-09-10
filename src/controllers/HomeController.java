@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,21 +68,19 @@ public class HomeController {
 		}
 	}
 	
-	private MovieItem addMovie(String posterURL, String title, String premiereDate, double price) {
-		Movie movie = new Movie(posterURL, title, premiereDate, price);
-		
+	private MovieItem addMovie(Movie movie) {
 		MovieItem movieItem = new MovieItem(movie);
 		try {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 			Date now = new Date();
 			//Add to "now showing" list if the premiere date has passed.
-			if(dateFormat.parse(premiereDate).before(now)) {
+			if(dateFormat.parse(movie.premiereDate).before(now)) {
 				movieItem.addToGridPane(movieListNS);
 			} else {
 				//...if not, add to "coming soon".
 				movieItem.addToGridPane(movieListCS);
 				movieItem.button.setDisable(true);
-				movieItem.button.setText(premiereDate);
+				movieItem.button.setText(movie.premiereDate);
 			}
 			movieItems.add(movieItem);
 		} catch (ParseException e) {
@@ -93,51 +92,78 @@ public class HomeController {
 	}
 	
 	@FXML
-	public void initialize() {
+	public void initialize() throws ParseException {
 		movieListNS.getColumnConstraints().get(0).setPrefWidth(0);
 		movieListNS.getColumnConstraints().get(0).setMinWidth(0);
 		movieListCS.getColumnConstraints().get(0).setPrefWidth(0);
 		movieListCS.getColumnConstraints().get(0).setMinWidth(0);
 
-		MovieItem bp = addMovie("./resources/posters/1.jpg", "Black Panther", "09/20/2021", 350.75);
-		Schedule sched1 = new Schedule("09/21/2021");
-		sched1.availableTimes.add("9:30 AM");
-		sched1.availableTimes.add("12:00 PM");
-		sched1.availableTimes.add("2:30 PM");
-		sched1.availableTimes.add("5:00 PM");
-		sched1.availableTimes.add("7:30 PM");
-		bp.movie.schedules.add(sched1);
-		Schedule sched2 = new Schedule("09/22/2021");
-		sched2.availableTimes.add("10:30 AM");
-		sched2.availableTimes.add("1:00 PM");
-		sched2.availableTimes.add("3:30 PM");
-		sched2.availableTimes.add("6:00 PM");
-		sched2.availableTimes.add("8:30 PM");
-		bp.movie.schedules.add(sched2);
-		MovieItem bd = addMovie("./resources/posters/2.jpg", "Baby Driver", "08/14/2022", 405.50);
-		Schedule sched3 = new Schedule("08/14/2021");
-		sched3.availableTimes.add("10:30 AM");
-		sched3.availableTimes.add("1:00 PM");
-		sched3.availableTimes.add("3:30 PM");
-		sched3.availableTimes.add("6:00 PM");
-		sched3.availableTimes.add("8:30 PM");
-		bd.movie.schedules.add(sched3);
-		Schedule sched4 = new Schedule("08/15/2021");
-		sched4.availableTimes.add("10:30 AM");
-		sched4.availableTimes.add("1:00 PM");
-		sched4.availableTimes.add("3:30 PM");
-		sched4.availableTimes.add("6:00 PM");
-		sched4.availableTimes.add("8:30 PM");
-		bd.movie.schedules.add(sched4);
-		MovieItem cm = addMovie("./resources/posters/3.jpg", "Captain Marvel", "09/18/2022", 300);
-		MovieItem smh = addMovie("./resources/posters/4.jpg", "Spider-Man - Homecoming", "06/14/2022", 375);
-		MovieItem ml = addMovie("./resources/posters/5.jpg", "Moonlight", "07/13/2022", 420);
-		MovieItem tr = addMovie("./resources/posters/6.jpg", "Thor - Ragnarok", "08/06/2022", 275);
-		MovieItem br = addMovie("./resources/posters/7.jpg", "Bohemian Rhapsody", "06/05/2023", 325);
-		MovieItem smits = addMovie("./resources/posters/8.jpg", "Spider-Man - Into the Spiderverse", "05/14/2022", 300);
-		MovieItem tb = addMovie("./resources/posters/9.jpg", "The Batman", "05/27/2023", 450);
+		Movie blackPanther = new Movie("Black Panther", "9/20/2021", 350, "./resources/posters/1.jpg");
+		Movie babyDriver = new Movie("Baby Driver", "08/14/2022", 405.50, "./resources/posters/2.jpg");
+		Movie captainMarvel = new Movie("Captain Marvel", "09/18/2022", 300, "./resources/posters/3.jpg");
+		Movie SMHomecoming = new Movie("Spider-Man - Homecoming", "06/14/2022", 375, "./resources/posters/4.jpg");
+		Movie moonlight = new Movie("Moonlight", "07/13/2022", 420, "./resources/posters/5.jpg");
+		Movie thorRagnarok = new Movie("Thor - Ragnarok", "08/06/2022", 275, "./resources/posters/6.jpg");
+		Movie bohemianRhapsody = new Movie("Bohemian Rhapsody", "06/05/2023", 325, "./resources/posters/7.jpg");
+		Movie SMIntoTheSpiderverse = new Movie("Spider-Man - Into the Spiderverse", "05/14/2022", 300, "./resources/posters/8.jpg");
+		Movie theBatman = new Movie("The Batman", "05/27/2023", 450, "./resources/posters/9.jpg");
 		
-		Voucher voucher = Vouchers.generate();
-		System.out.println(voucher.getCode());
+		ArrayList<Movie> movies = new ArrayList<Movie>();
+		movies.add(blackPanther);
+		movies.add(babyDriver);
+		movies.add(captainMarvel);
+		movies.add(SMHomecoming);
+		movies.add(moonlight);
+		movies.add(thorRagnarok);
+		movies.add(bohemianRhapsody);
+		movies.add(SMIntoTheSpiderverse);
+		movies.add(theBatman);
+		for (int i = 0; i < movies.size(); i++) {
+			Movie ithMovie = movies.get(i);
+			
+			SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+			Date premiereDate = format.parse(ithMovie.premiereDate);
+			
+			
+			Schedule sched1 = new Schedule(ithMovie.premiereDate);
+			sched1.availableTimes.add("9:30 AM");
+			sched1.availableTimes.add("12:00 PM");
+			sched1.availableTimes.add("2:30 PM");
+			sched1.availableTimes.add("5:00 PM");
+			sched1.availableTimes.add("7:30 PM");
+			ithMovie.schedules.add(sched1);
+			
+			Date premiereDate1 = new Date(premiereDate.getTime() +  + TimeUnit.DAYS.toMillis(1));
+			Schedule sched2 = new Schedule(format.format(premiereDate1));
+			sched2.availableTimes.add("10:30 AM");
+			sched2.availableTimes.add("1:00 PM");
+			sched2.availableTimes.add("3:30 PM");
+			sched2.availableTimes.add("6:00 PM");
+			sched2.availableTimes.add("8:30 PM");
+			ithMovie.schedules.add(sched2);
+			
+			Date premiereDate2 = new Date(premiereDate.getTime() +  + TimeUnit.DAYS.toMillis(2));
+			Schedule sched3 = new Schedule(format.format(premiereDate2));
+			sched3.availableTimes.add("11:30 AM");
+			sched3.availableTimes.add("2:00 PM");
+			sched3.availableTimes.add("4:30 PM");
+			sched3.availableTimes.add("7:00 PM");
+			sched3.availableTimes.add("9:30 PM");
+			ithMovie.schedules.add(sched3);
+			 
+			addMovie(ithMovie);
+		}
+
+		Voucher voucher1 = Vouchers.generate("Cool voucher", 0.125);
+		Voucher voucher2 = Vouchers.generate("Summer promo", 0.25);
+		Voucher voucher3 = Vouchers.generate("Epic voucher", 0.5);
+		System.out.println("Sample vouchers:");
+		System.out.println("Voucher 1: (12.5%)");
+		System.out.println(voucher1.getCode());
+		System.out.println("Voucher 2: (25%)");
+		System.out.println(voucher2.getCode());
+		System.out.println("Voucher 3: (50%)");
+		System.out.println(voucher3.getCode());
+
 	}
 }

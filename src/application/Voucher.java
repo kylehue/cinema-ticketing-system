@@ -2,13 +2,11 @@ package application;
 
 public class Voucher {
 	private String code;
+	public String title;
 	private double discountRate = 0;
-	public Voucher() {
+	public Voucher(String title, double discountRate) {
 		this.code = Utils.createUID();
-		
-	}
-	
-	public void setDiscountRate(double discountRate) {
+		this.title = title;
 		this.discountRate = discountRate;
 	}
 	

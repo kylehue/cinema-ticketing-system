@@ -9,6 +9,7 @@ import application.Movie;
 import application.Utils;
 import application.Voucher;
 import application.Vouchers;
+import components.SeatItem;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -63,6 +64,7 @@ public class BillingController {
 
 	public Movie movie;
 	public int quantity = 1;
+	private Voucher voucher = null;
 	private DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
 	@FXML
@@ -72,7 +74,12 @@ public class BillingController {
 	
 	@FXML
 	public void proceed() {
-		SceneController.switchToSeats();
+		double paymentAmount = Double.parseDouble(paymentAmountInput.getText());
+		SceneController.overviewController.setPaymentAmount(paymentAmount);
+		SceneController.overviewController.setVoucher(voucher);
+		SceneController.overviewController.compute();
+		
+		SceneController.switchToOverview();
 	}
 	
 	@FXML
@@ -89,19 +96,26 @@ public class BillingController {
 		
 	}
 	
+	public void reset() {
+		proceedButton.setDisable(true);
+		paymentAmountInput.setText("");
+		voucherCodeInput.setText("");
+	}
+	
 	@FXML
 	public void validateVoucherCode(KeyEvent event) {
 		String inputValue = voucherCodeInput.getText();
 		ArrayList<Voucher> vouchers = Vouchers.getVouchers();
-		boolean validVoucher = false;
+		Voucher voucher = null;
 		for (int i = 0; i < vouchers.size(); i++) {
 			Voucher ithVoucher = vouchers.get(i);
 			if (ithVoucher.getCode().equals(inputValue)) {
-				validVoucher = true;
+				voucher = ithVoucher;
 			}
 		}
 		
-		if (validVoucher) {
+		if (voucher != null || inputValue.length() == 0) {
+			this.voucher = voucher;
 			proceedButton.setDisable(false);
 		} else {
 			proceedButton.setDisable(true);
@@ -133,6 +147,7 @@ public class BillingController {
 		voucherCodeInput.setText("");
 		seatsLabel.setText("");
 		proceedButton.setDisable(true);
+		voucher = null;
 		
 		//Set movie title
 		filmLabel.setText(movie.title);

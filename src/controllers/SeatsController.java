@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 
 import application.Movie;
+import application.Tickets;
 import components.SeatItem;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
@@ -33,6 +34,8 @@ public class SeatsController {
 	private int maxTickets = 1;
 	private ArrayList<SeatItem> seatItems = new ArrayList<SeatItem>();
 	private Movie movie;
+	private String date;
+	private String time;
 
 	@FXML
 	public void goBack() {
@@ -50,8 +53,9 @@ public class SeatsController {
 		}
 		
 		seats = seats.trim().replaceAll("\s+", ", ");
-		
+
 		SceneController.billingController.setSeats(seats);
+		SceneController.overviewController.setSeats(seats);
 		SceneController.switchToBilling();
 	}
 	
@@ -67,7 +71,26 @@ public class SeatsController {
 			}
 		}
 		
+		SceneController.billingController.reset();
 		proceedButton.setDisable(true);
+	}
+	
+	public void setSchedule(String date, String time) {
+		this.date = date;
+		this.time = time;
+		disableTakenSeats(date, time);
+		
+	}
+	
+	private void disableTakenSeats(String date, String time) {
+		for (int i = 0; i < seatItems.size(); i++ ) {
+			SeatItem ithSeatItem = seatItems.get(i);
+			if(Tickets.has(movie.id, date, time, ithSeatItem.id)) {
+				ithSeatItem.setTaken(true);
+			} else {
+				ithSeatItem.setTaken(false);
+			}
+		}
 	}
 	
 	public void setMovie(Movie movie) {
@@ -92,7 +115,7 @@ public class SeatsController {
 		return selectedSeatsCount;
 	}
 	
-	private void addSeat(String id, GridPane gridPane, int rowIndex, int columnIndex) {
+	private SeatItem addSeat(String id, GridPane gridPane, int rowIndex, int columnIndex) {
 		SeatItem seat = new SeatItem(id, buttonSize);
 		
 		
@@ -123,6 +146,8 @@ public class SeatsController {
 		
 		seatItems.add(seat);
 		gridPane.add(seat.button, columnIndex, rowIndex);
+		
+		return seat;
 	}
 
 	private int threshold1 = 6;
@@ -143,7 +168,7 @@ public class SeatsController {
 		
 		return false;
 	}
-
+	
 	private void initializeSeats() {
 		//Create cells for the table then add seats
 		initializeCells();

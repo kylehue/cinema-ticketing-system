@@ -59,6 +59,8 @@ public class MovieItem {
 			SceneController.ticketController.setMovie(movie);
 			SceneController.seatsController.setMovie(movie);
 			SceneController.billingController.setMovie(movie);
+			SceneController.overviewController.setMovie(movie);
+			SceneController.successController.setMovie(movie);
 			SceneController.switchToSchedule();
 		});
 		

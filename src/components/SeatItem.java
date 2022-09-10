@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 public class SeatItem {
 	public String id;
 	public boolean isActive = false;
+	public boolean taken = false;
 	public Button button = new Button();
 	
 	public SeatItem(String id, double size) {
@@ -16,8 +17,14 @@ public class SeatItem {
 		button.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 		button.getStyleClass().addAll("seat", "seat-button");
 		
+		
 		Tooltip tooltip = new Tooltip();
 		tooltip.setText(id);
 		Tooltip.install(button, tooltip);
+	}
+	
+	public void setTaken(boolean taken) {
+		this.taken = taken;
+		button.setDisable(taken);
 	}
 }

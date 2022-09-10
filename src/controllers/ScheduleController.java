@@ -81,10 +81,11 @@ public class ScheduleController {
 				break;
 			}
 		}
-		
 
 		SceneController.ticketController.setSchedule(date, time);
+		SceneController.seatsController.setSchedule(date, time);
 		SceneController.billingController.setSchedule(date, time);
+		SceneController.overviewController.setSchedule(date, time);
 		SceneController.switchToTicket();
 	}
 	

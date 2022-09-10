@@ -27,3 +27,7 @@
 .seat-button-active:pressed {
 	-fx-background-color: derive(-accent, -10%) !important;
 }
+
+.seat-button-active:disabled {
+	-fx-background-color: -slate-300 !important;
+}
