@@ -24,6 +24,9 @@ import javafx.scene.layout.GridPane;
 public class HomeController {
 	@FXML
 	private GridPane mainContainer;
+
+	@FXML
+	private GridPane navContainer;
 	
 	@FXML
 	private Button homeSceneButton;
@@ -97,6 +100,8 @@ public class HomeController {
 		movieListNS.getColumnConstraints().get(0).setMinWidth(0);
 		movieListCS.getColumnConstraints().get(0).setPrefWidth(0);
 		movieListCS.getColumnConstraints().get(0).setMinWidth(0);
+		mainContainer.getColumnConstraints().get(0).setPrefWidth(0);
+		navContainer.setVisible(false);
 
 		Movie blackPanther = new Movie("Black Panther", "9/20/2021", 350, "./resources/posters/1.jpg");
 		Movie babyDriver = new Movie("Baby Driver", "08/14/2022", 405.50, "./resources/posters/2.jpg");

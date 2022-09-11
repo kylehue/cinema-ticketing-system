@@ -30,6 +30,8 @@ public class MovieItem {
 	private void initialize(Movie movie) {
 		//Create wrapper for poster
 		posterWrapper = new Pane();
+		posterWrapper.minWidth(10);
+		posterWrapper.minHeight(15);
 		//posterWrapper.setStyle("-fx-background-color:#111;");
 		//gridPane.setGridLinesVisible(true);
 		
